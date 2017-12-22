@@ -8,16 +8,38 @@
 <!-- 	<h1>Hello World</h1> -->
 	<div id="app">
 		<h1>{{ message }}</h1>
-		<div>
-			<script>
-				let app = new Vue({
-					el: "#app",
-					data: {
-						message: "Hello World!"
-					}
-				});
-			</script>
-		</div>
-	</div>
+		<p v-if="secretMessage">This is a secret HTML element</p>
+		<p v-else>Welcome to my crypto comparison</p>
+		<p>Shopping List</p>
+		<ol>
+			<li v-for="item in shoppingList">{{ item }}</li>
+		</ol>
+		<h2>Two way data binding example</h2>		
+		<p>What's your favorite color?</p>
+		<input v-model="color" type="text" name="">
+		<input type="button" v-on:click="capitalizeColor" value="Capitalize" name="">
+		<p>Your fav is {{ color }}</p>
+	</div>			
+	<script>
+		let app = new Vue({
+			el: "#app",
+			data: {
+				message: "Hello World!",
+				secretMessage: false,
+				shoppingList: [
+					"milk",
+					"eggs",
+					"steak",
+					"chicken"
+				],
+				color: ''
+			},
+			methods: {
+				capitalizeColor: function() {
+					this.color = this.color.toUpperCase();
+				}
+			}
+		});
+	</script>
 </body>
 </html>
