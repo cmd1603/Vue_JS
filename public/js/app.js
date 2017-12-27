@@ -6,7 +6,7 @@ const UPDATE_INTERVAL = 60 * 1000;
 let app = new Vue({
 	el: "#app",
 	data: {
-		coin: [],
+		coins: [],
 		coinData: {}
 	},
 	methods: {
@@ -37,7 +37,15 @@ let app = new Vue({
 		},
 
 		getCoinImage: function(symbol) {
-			return CRYPTOCOMPARE_API_URI + this.coinData[symbol].ImageUrl;
+			try {
+				return BASE_IMAGE_URL + this.coinData[symbol]['ImageUrl'];
+			} catch (err) {
+				return "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg"
+			}
+		},
+
+		getColor: (num) => {
+			return num > 0 ? "color:green;" : "color:red;";
 		}
 	},
 	created: function() {
@@ -48,3 +56,6 @@ let app = new Vue({
 setInterval(() => {
 	app.getCoins();
 }, UPDATE_INTERVAL);
+
+
+

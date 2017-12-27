@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CryptoCompare</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="public/css/style.css">
+        <link rel="stylesheet" href="/css/style.css">
   </head>
 	<body class="container">
 		<h1>Crypto Compare</h1>
@@ -22,23 +22,35 @@
 		<div id="app">
 			<table class="table table-hover">
 				<thead>
+					<td>Rank</td>
+					<td>Name</td>
+					<td>Symbol</td>
+					<td>Price (USD)</td>
+					<td>1H</td>
+					<td>1D</td>
+					<td>1W</td>
+					<td>Market Cap (USD)</td>		
+			    </thead> 
+			    <tbody>
 					<tr v-for="coin in coins">
 						<td>{{ coin.rank }}</td>
 						<td><img v-bind:src="getCoinImage(coin.symbol)">{{ coin.name }}</td>
 						<td>{{ coin.symbol }}</td>
 						<td>{{ coin.price_usd | currency }}</td>
-						<td>
+						<td v-bind:style="getColor(coin.percent_change_1h)">
 							<span v-if="coin.percent_change_1h > 0">+</span>{{ coin.percent_change_1h }}%
 						</td>
-						<td>
+						<td v-bind:style="getColor(coin.percent_change_24h)">
 							<span v-if="coin.percent_change_24h > 0">+</span>{{ coin.percent_change_24h }}%
 						</td>
-						<td>
+						<td v-bind:style="getColor(coin.percent_change_7d)">
 							<span v-if="coin.percent_change_7d > 0">+</span>{{ coin.percent_change_7d }}%
 						</td>
 						<td>{{ coin.market_cap_usd | currency }}</td>						
-					</tr>
-				</thead>
+					</tr>			    	
+			    </tbody> 			
+
+				
 			</table>	
 		</div>
 		<script src="/js/vue.js"></script>
