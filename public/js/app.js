@@ -39,5 +39,12 @@ let app = new Vue({
 		getCoinImage: function(symbol) {
 			return CRYPTOCOMPARE_API_URI + this.coinData[symbol].ImageUrl;
 		}
+	},
+	created: function() {
+		this.getCoinData();
 	}
-})
+});
+
+setInterval(() => {
+	app.getCoins();
+}, UPDATE_INTERVAL);
