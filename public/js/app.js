@@ -11,15 +11,33 @@ let app = new Vue({
 	},
 	methods: {
 		getCoinData: function() {
+			let self = this;
 
+			axios.get(CRYPTOCOMPARE_API_URI + "/api/data/coinlist")
+				.then((resp) => {
+					this.coinData = resp.data.Data;
+					this.getCoins();
+				})
+				.catch((err) => {
+					this.getCoins();
+					console.error(err);
+				});
 		},
 
 		getCoins: function() {
-			
+			let self = this;
+
+			axios.get(COINMARKETCAP_API_URI + "/v1/ticker/?limit=10")
+				.then((resp) => {
+					this.coins = resp.data;
+				})
+				.catch((err) => {
+					console.error(err);
+				});
 		},
 
 		getCoinImage: function(symbol) {
-			
+			return CRYPTOCOMPARE_API_URI + this.coinData[symbol].ImageUrl;
 		}
 	}
 })
