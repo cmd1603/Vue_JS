@@ -11,16 +11,17 @@ let app = new Vue({
 	},
 	methods: {
 		getCoinData: function() {
-			let self = this;
+			console.log('getting coin data');
 
-			axios.get(CRYPTOCOMPARE_API_URI + "/api/data/coinlist")
+			axios.get(CRYPTOCOMPARE_API_URI + "/data/all/coinlist")
 				.then((resp) => {
+					console.log('got data');
 					this.coinData = resp.data.Data;
 					this.getCoins();
 				})
 				.catch((err) => {
 					this.getCoins();
-					console.error(err);
+					console.log('Error', err.message);
 				});
 		},
 		getCoins: function() {
@@ -49,6 +50,7 @@ let app = new Vue({
 	},
 	created: function() {
 		this.getCoinData();
+		this.getCoins();
 	}
 });
 
